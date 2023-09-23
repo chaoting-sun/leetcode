@@ -114,33 +114,5 @@ class Solution(object):
 #         return ans
 
 
-# method4: dynamic programming (TLE)
-
-# import numpy as np
-
-# class Solution(object):
-#     def longestPalindrome(self, s):
-#         """
-#         :type s: str
-#         :rtype: str
-#         """
-#         ans = s[0]
-#         max_len = 1
-#         dp = np.ones((len(s), len(s))) # default: True
-        
-#         for j in range(len(s)):
-#             for i in range(j):
-#                 if i + 1 == j and s[i] != s[j]:
-#                     dp[i][j] = 0
-
-#                 if dp[i+1][j-1] == 0 or s[i] != s[j]:
-#                     dp[i][j] = 0
-
-#                 if dp[i][j] == 1 and j - i + 1 > max_len:
-#                     max_len = j - i + 1
-#                     ans = s[i:j+1]            
-#         return ans
-
-
-### method5: Manacher algorithm (Time complexity = O(N))
+### method4: Manacher algorithm (Time complexity = O(N))
 # too hard
