@@ -1,4 +1,4 @@
-# method1: hashmap
+### method1: hashmap
 
 # class Solution(object):
 #     def lengthOfLongestSubstring(self, s):
@@ -19,6 +19,8 @@
 
 #         return max(max_len, len(s)-left)
 
+
+### method2: set
 
 class Solution(object):
     def lengthOfLongestSubstring(self, s):
