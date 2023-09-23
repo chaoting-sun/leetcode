@@ -22,6 +22,30 @@
 
 ### method2: set
 
+# class Solution(object):
+#     def lengthOfLongestSubstring(self, s):
+#         """
+#         :type s: str
+#         :rtype: int
+#         """
+#         left = right = 0
+#         chars = set()
+#         max_len = 0
+
+#         for right in range(len(s)):
+#             if s[right] not in chars:
+#                 chars.add(s[right])
+#                 max_len = max(max_len, right - left + 1)
+#             else:
+#                 while s[right] in chars:
+#                     chars.remove(s[left])
+#                     left += 1
+#                 chars.add(s[right])
+#         return max_len
+
+
+### method3: integer array
+
 class Solution(object):
     def lengthOfLongestSubstring(self, s):
         """
@@ -29,16 +53,12 @@ class Solution(object):
         :rtype: int
         """
         left = right = 0
-        chars = set()
         max_len = 0
+        chars = [-1] * 128
 
         for right in range(len(s)):
-            if s[right] not in chars:
-                chars.add(s[right])
-                max_len = max(max_len, right - left + 1)
-            else:
-                while s[right] in chars:
-                    chars.remove(s[left])
-                    left += 1
-                chars.add(s[right])
+            if chars[ord(s[right])] >= left:
+                left = chars[ord(s[right])] + 1
+            chars[ord(s[right])] = right
+            max_len = max(max_len, right - left + 1)
         return max_len
