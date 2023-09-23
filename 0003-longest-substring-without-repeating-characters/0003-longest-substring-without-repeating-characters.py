@@ -4,9 +4,6 @@ class Solution(object):
         :type s: str
         :rtype: int
         """
-        if len(s) == 0:
-            return 0
-
         chars = {}
         max_len = 0
         sid = 0
