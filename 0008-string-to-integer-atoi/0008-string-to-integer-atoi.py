@@ -45,7 +45,6 @@ class Solution(object):
         lb = -2**31
 
         for i in range(len(digits)):
-            print(digits[i], 10**(len(digits)-i-1))
             mysum += digits[i] * 10**(len(digits)-i-1)
 
         mysum = sign*mysum if sign == -1 else mysum
