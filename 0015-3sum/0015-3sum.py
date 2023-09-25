@@ -1,3 +1,6 @@
+### two pointers (mine)
+
+
 # class Solution(object):
 #     def threeSum(self, nums):
 #         """
@@ -28,6 +31,8 @@
 #                         r -= 1
 #         return ans
 
+
+### two pointers (optimized)
 
 class Solution(object):
     def threeSum(self, nums):
