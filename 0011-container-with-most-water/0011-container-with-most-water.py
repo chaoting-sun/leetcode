@@ -1,4 +1,4 @@
-# method1: brute force (TLE)
+### method1: brute force (TLE)
 
 # class Solution(object):
 #     def maxArea(self, height):
@@ -14,6 +14,8 @@
 #                 maxArea = max(maxArea, area)
 #         return maxArea
 
+
+### method2: two pointer
 
 class Solution(object):
     def maxArea(self, height):
