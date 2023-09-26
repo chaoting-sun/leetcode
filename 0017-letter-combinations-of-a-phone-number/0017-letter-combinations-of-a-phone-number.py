@@ -57,14 +57,14 @@
 #         if len(digits) == 0:
 #             return []
 
-#         d2e = ['', '', 'abc', 'def', 'ghi', 'jkl',
-#                'mno', 'pqrs', 'tuv', 'wxyz']
+#         chars = ['', '', 'abc', 'def', 'ghi', 'jkl',
+#                  'mno', 'pqrs', 'tuv', 'wxyz']
 #         ans = ['']
 
 #         for d in digits:
 #             tmp = []
 #             for a in ans:
-#                 for e in d2e[ord(d)-ord('0')]:
+#                 for e in chars[ord(d)-ord('0')]:
 #                     tmp.append(a + e)
 #             ans = tmp
 #         return ans
@@ -74,19 +74,59 @@
 
 class Solution:
     def letterCombinations(self, digits):
-      def dfs(digits, d, l, cur, ans):
-        if l == len(digits):
-          if l > 0: ans.append("".join(cur))
-          return
+        """
+        :type digits: str
+        :rtype: List[str]
+        """
+        chars = ['', '', 'abc', 'def', 'ghi', 'jkl',
+                 'mno', 'pqrs', 'tuv','wxyz']
+
+        def dfs(tmp, l, ans):
+            if l == len(digits):
+                ans.append(''.join(tmp))
+                return
+            
+            for c in chars[ord(digits[l])-ord('0')]:
+                tmp[l] = c
+                dfs(tmp, l+1, ans)
+
+        if len(digits) == 0:
+            return []
+
+        ans = []
+        tmp = [''] * len(digits)
+        dfs(tmp, 0, ans)
+
+        return ans
         
-        for c in d[ord(digits[l]) - ord('0')]:
-            cur[l] = c
-            dfs(digits, d, l + 1, cur, ans)
+
+
+
+
+
+
+
+
+
+
+
+# class Solution:
+#     def letterCombinations(self, digits):
+#         def dfs(digits, d, l, cur, ans):
+#             if l == len(digits):
+#                 if l > 0:
+#                     ans.append("".join(cur))
+#                 return
         
-      d = ["", "", "abc", "def", "ghi", "jkl",
-           "mno", "pqrs", "tuv","wxyz"]
-      cur = [' ' for _ in range(len(digits))]
-      print(cur)
-      ans = []
-      dfs(digits, d, 0, cur, ans)
-      return ans
+#             for c in d[ord(digits[l]) - ord('0')]:
+#                 cur[l] = c
+#                 print(l, cur)
+#                 dfs(digits, d, l + 1, cur, ans)
+            
+#         d = ["", "", "abc", "def", "ghi", "jkl",
+#             "mno", "pqrs", "tuv","wxyz"]
+#         cur = ['' for _ in range(len(digits))]
+#         print(cur)
+#         ans = []
+#         dfs(digits, d, 0, cur, ans)
+#         return ans
