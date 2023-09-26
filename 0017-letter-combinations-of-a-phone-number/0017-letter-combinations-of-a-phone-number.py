@@ -48,23 +48,45 @@
 
 ### method2: BFS
 
-class Solution(object):
+# class Solution(object):
+#     def letterCombinations(self, digits):
+#         """
+#         :type digits: str
+#         :rtype: List[str]
+#         """
+#         if len(digits) == 0:
+#             return []
+
+#         d2e = ['', '', 'abc', 'def', 'ghi', 'jkl',
+#                'mno', 'pqrs', 'tuv', 'wxyz']
+#         ans = ['']
+
+#         for d in digits:
+#             tmp = []
+#             for a in ans:
+#                 for e in d2e[ord(d)-ord('0')]:
+#                     tmp.append(a + e)
+#             ans = tmp
+#         return ans
+
+
+# method3: DFS
+
+class Solution:
     def letterCombinations(self, digits):
-        """
-        :type digits: str
-        :rtype: List[str]
-        """
-        if len(digits) == 0:
-            return []
-
-        d2e = ['', '', 'abc', 'def', 'ghi', 'jkl',
-               'mno', 'pqrs', 'tuv', 'wxyz']
-        ans = ['']
-
-        for d in digits:
-            tmp = []
-            for a in ans:
-                for e in d2e[ord(d)-ord('0')]:
-                    tmp.append(a + e)
-            ans = tmp
-        return ans
+      def dfs(digits, d, l, cur, ans):
+        if l == len(digits):
+          if l > 0: ans.append("".join(cur))
+          return
+        
+        for c in d[ord(digits[l]) - ord('0')]:
+            cur[l] = c
+            dfs(digits, d, l + 1, cur, ans)
+        
+      d = ["", "", "abc", "def", "ghi", "jkl",
+           "mno", "pqrs", "tuv","wxyz"]
+      cur = [' ' for _ in range(len(digits))]
+      print(cur)
+      ans = []
+      dfs(digits, d, 0, cur, ans)
+      return ans
