@@ -102,13 +102,4 @@ class Solution(object):
         elif ans < lb:
             return lb
         else:
-            return ans          
-            
-
-
-
-            
-            
-                
-            
-        
+            return ans
