@@ -24,4 +24,3 @@ class Solution(object):
         if len(stk) > 0:
             return False
         return True
-                
