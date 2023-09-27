@@ -14,7 +14,7 @@ class Solution(object):
         head = None
         p1, p2 = list1, list2
 
-        while p1 is not None or p2 is not None:
+        while p1 or p2:
             if not p1:
                 currNode = p2
                 p2 = p2.next
