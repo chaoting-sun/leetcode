@@ -1,3 +1,5 @@
+### method1: dfs
+
 class Solution(object):
     def dfs(self, prevNums, maxL, prevSet, ans):
         if len(prevSet) == maxL:
@@ -17,3 +19,6 @@ class Solution(object):
         ans = []
         self.dfs(nums, len(nums), [], ans)
         return ans
+
+### nice source:
+# https://leetcode.com/problems/permutations/solutions/18239/a-general-approach-to-backtracking-questions-in-java-subsets-permutations-combination-sum-palindrome-partioning/?envType=list&envId=rab78cw1
