@@ -1,5 +1,3 @@
-import numpy as np
-
 class Solution(object):
     def trap(self, height):
         """
@@ -7,8 +5,8 @@ class Solution(object):
         :rtype: int
         """
         n = len(height)
-        prefixMax = np.zeros((n,), dtype=np.int)
-        suffixMax = np.zeros((n,), dtype=np.int)
+        prefixMax = [0] * n
+        suffixMax = [0] * n
         
         maxV = 0
         for i in range(n):
@@ -20,9 +18,8 @@ class Solution(object):
             suffixMax[i] = maxV
 
         vol = 0
-        for i in range(n):
-            vol += min(prefixMax[i], suffixMax[i]) - height[i]
-
+        for h, pref, suff in zip(height, prefixMax, suffixMax):
+            vol += min(pref, suff) - h
         return vol
 
 
