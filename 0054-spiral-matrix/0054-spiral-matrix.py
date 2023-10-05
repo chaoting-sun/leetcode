@@ -12,16 +12,14 @@ class Solution(object):
         ans = [matrix[0][0]]
         i = 0
         j = 1
-        print(matrix)
 
         while True:
             while j < upRight:
                 ans.append(matrix[i][j])
                 j += 1
             j -= 1
-            
+            i += 1            
             upLeft += 1
-            i += 1
 
             if len(ans) == nEle:
                 break
@@ -30,9 +28,9 @@ class Solution(object):
                 ans.append(matrix[i][j])
                 i += 1
             i -= 1
-
-            upRight -= 1
             j -= 1
+            upRight -= 1
+
 
             if len(ans) == nEle:
                 break
@@ -41,8 +39,8 @@ class Solution(object):
                 ans.append(matrix[i][j])
                 j -= 1
             j += 1
-            downRight -= 1
             i -= 1
+            downRight -= 1
 
             if len(ans) == nEle:
                 break
@@ -51,9 +49,8 @@ class Solution(object):
                 ans.append(matrix[i][j])
                 i -= 1
             i += 1
-
-            downLeft += 1
             j += 1
+            downLeft += 1
 
             if len(ans) == nEle:
                 break
