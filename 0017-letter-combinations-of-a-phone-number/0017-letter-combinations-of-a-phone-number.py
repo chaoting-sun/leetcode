@@ -98,35 +98,3 @@ class Solution:
         dfs(tmp, 0, ans)
 
         return ans
-        
-
-
-
-
-
-
-
-
-
-
-
-# class Solution:
-#     def letterCombinations(self, digits):
-#         def dfs(digits, d, l, cur, ans):
-#             if l == len(digits):
-#                 if l > 0:
-#                     ans.append("".join(cur))
-#                 return
-        
-#             for c in d[ord(digits[l]) - ord('0')]:
-#                 cur[l] = c
-#                 print(l, cur)
-#                 dfs(digits, d, l + 1, cur, ans)
-            
-#         d = ["", "", "abc", "def", "ghi", "jkl",
-#             "mno", "pqrs", "tuv","wxyz"]
-#         cur = ['' for _ in range(len(digits))]
-#         print(cur)
-#         ans = []
-#         dfs(digits, d, 0, cur, ans)
-#         return ans
