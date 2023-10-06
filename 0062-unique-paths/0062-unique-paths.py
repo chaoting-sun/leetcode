@@ -1,30 +1,23 @@
-### method: divide and conquer (TLE)
+### method1: dfs (O(2^{n+m}); TLE)
 
-class Solution(object):
-    def uniquePaths(self, m, n):
-        """
-        :type m: int
-        :type n: int
-        :rtype: int
-        """
-        def recursion(prevX, prevY, finalX, finalY, cnt):
-            if prevX == finalX and prevY == finalY:
-                return cnt + 1
-            
-            Xcnt = Ycnt = 0
+# class Solution(object):
+#     def uniquePaths(self, m, n):
+#         """
+#         :type m: int
+#         :type n: int
+#         :rtype: int
+#         """
+#         def dfs(i, j):
+#             if i >= m or j >= n:
+#                 return 0
+#             if i == m-1 and j == n-1:
+#                 return 1
+#             return dfs(i+1, j) + dfs(i, j+1)
 
-            if prevX < finalX:
-                Xcnt = recursion(prevX+1, prevY, finalX, finalY, cnt)
-
-            if prevY < finalY:
-                Ycnt = recursion(prevX, prevY+1, finalX, finalY, cnt)
-
-            return cnt + Xcnt + Ycnt
-
-        return recursion(0, 0, n-1, m-1, 0)
+#         return dfs(0, 0)
 
 
-### method2: dynamic programming
+### method2: dp
 
 class Solution(object):
     def uniquePaths(self, m, n):
