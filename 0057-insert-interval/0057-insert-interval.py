@@ -56,11 +56,11 @@ class Solution(object):
         n = len(intervals)
 
         while i < n:
-            if intervals[i][1] < newInterval[0]:
+            if intervals[i][1] < newInterval[0]: # left
                 ans.append(intervals[i])
-            elif intervals[i][0] > newInterval[1]:
+            elif intervals[i][0] > newInterval[1]: # right
                 break
-            else:
+            else: # center
                 newInterval[0] = min(newInterval[0], intervals[i][0])
                 newInterval[1] = max(newInterval[1], intervals[i][1])
             i += 1
