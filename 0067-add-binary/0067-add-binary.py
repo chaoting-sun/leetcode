@@ -1,12 +1,7 @@
 ### mine
 
 # class Solution(object):
-#     def addBinary(self, a, b):
-#         """
-#         :type a: str
-#         :type b: str
-#         :rtype: str
-#         """
+#     def addBinary(self, a: str, b: str) -> str:
 #         ans = ''
 #         i, j = len(a)-1, len(b)-1
 #         tmp = 0
@@ -45,13 +40,8 @@
 ### cleaner
 
 class Solution(object):
-    def addBinary(self, a, b):
-        """
-        :type a: str
-        :type b: str
-        :rtype: str
-        """
-        ans = ''
+    def addBinary(self, a: str, b: str) -> str:
+        ans = []
         i, j = len(a)-1, len(b)-1
         carry = 0
 
@@ -62,6 +52,6 @@ class Solution(object):
             if j >= 0:
                 carry += int(b[j])
                 j -= 1
-            ans = str(carry % 2) + ans
+            ans.append(str(carry % 2))
             carry //= 2
-        return ans
+        return ''.join(ans[::-1])
