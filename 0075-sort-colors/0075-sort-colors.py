@@ -18,7 +18,7 @@
 #             return nums
 
 
-### method2: one-pass algorithm
+### method2: one-pass algorithm (Dutch National Flag Algorithm)
 
 class Solution:
     def sortColors(self, nums: List[int]) -> None:
