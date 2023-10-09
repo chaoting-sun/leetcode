@@ -1,6 +1,6 @@
 ### method1: dfs
 
-class Solution(object):
+class Solution:
     def dfs(self, prevNums, maxL, prevSet, ans):
         if len(prevSet) == maxL:
             ans.append(prevSet)
@@ -10,12 +10,8 @@ class Solution(object):
             curSet = prevSet + [prevNums[i]]
             curNums = prevNums[:i] + prevNums[i+1:]
             self.dfs(curNums, maxL, curSet, ans)
-
-    def permute(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: List[List[int]]
-        """
+            
+    def permute(self, nums: List[int]) -> List[List[int]]:
         ans = []
         self.dfs(nums, len(nums), [], ans)
         return ans
