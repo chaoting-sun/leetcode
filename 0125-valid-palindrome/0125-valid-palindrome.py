@@ -14,8 +14,6 @@ class Solution:
                 left += 1
             while left < right and not s[right].isalnum():
                 right -= 1
-            # if the left and right crossovered, stop
-            # if left > right: break
 
             if s[left].lower() != s[right].lower():
                 return False
