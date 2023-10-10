@@ -42,20 +42,20 @@
 # time complexity: O(nlogn)
 # space complexity: O(n)
 
-class Solution:
-    def preorderTraversal(self, root, level, ans):
-        if not root: return
-        if level == len(ans):
-            ans.append([])
+# class Solution:
+#     def preorderTraversal(self, root, level, ans):
+#         if not root: return
+#         if level == len(ans):
+#             ans.append([])
 
-        ans[level].append(root.val)
-        self.preorderTraversal(root.left, level+1, ans)
-        self.preorderTraversal(root.right, level+1, ans)
+#         ans[level].append(root.val)
+#         self.preorderTraversal(root.left, level+1, ans)
+#         self.preorderTraversal(root.right, level+1, ans)
 
-    def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
-        ans = []
-        self.preorderTraversal(root, 0, ans)
-        return ans
+#     def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+#         ans = []
+#         self.preorderTraversal(root, 0, ans)
+#         return ans
 
 
 ### method2: queue (first in first out)
@@ -63,25 +63,25 @@ class Solution:
 # time complexity: O(N)
 # space complexity: O(N)
 
-# class Solution:
-#     def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
-#         if not root:
-#             return []
+class Solution:
+    def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+        if not root:
+            return []
         
-#         ans = []
-#         queue = [root]
+        ans = []
+        queue = [root]
 
-#         while len(queue):
-#             size = len(queue)
+        while len(queue):
+            size = len(queue)
 
-#             tmp = []
-#             while size:
-#                 root = queue.pop(0)
-#                 tmp.append(root.val)
-#                 if root.left: queue.append(root.left)
-#                 if root.right: queue.append(root.right)
-#                 size -= 1
-#             ans.append(tmp)
-#         return ans
+            tmp = []
+            while size:
+                root = queue.pop(0)
+                tmp.append(root.val)
+                if root.left: queue.append(root.left)
+                if root.right: queue.append(root.right)
+                size -= 1
+            ans.append(tmp)
+        return ans
         
         
