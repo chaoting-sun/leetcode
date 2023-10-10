@@ -28,6 +28,9 @@
 
 ### method2: down top approach; dfs
 
+# time complexity: O(N)
+# space complexity: O(N)
+
 class Solution:    
     def isBalanced(self, root: Optional[TreeNode]) -> bool:
         def dfsHeight(root):
