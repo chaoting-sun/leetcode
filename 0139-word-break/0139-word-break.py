@@ -68,3 +68,5 @@ class Solution:
                         q.append(i)
                 visited[start] = 1
         return False
+
+# nice source: https://www.cnblogs.com/grandyang/p/4257740.html
