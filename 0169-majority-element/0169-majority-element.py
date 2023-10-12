@@ -7,7 +7,6 @@ class Solution:
             else:
                 n_chars[nums[i]] = 1
         max_k, max_v = 0, 0
-        print(n_chars)
         for k, v in n_chars.items():
             if v > max_v:
                 max_k, max_v = k, v
