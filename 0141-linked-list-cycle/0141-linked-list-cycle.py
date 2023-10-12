@@ -13,7 +13,7 @@ class Solution:
 
         while fast:
             slow = slow.next
-            for i in range(5):
+            for i in range(10):
                 fast = fast.next
                 if fast == slow:
                     return True
