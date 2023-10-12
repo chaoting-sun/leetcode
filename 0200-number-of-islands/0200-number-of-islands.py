@@ -14,9 +14,7 @@ class Solution:
         for i in range(len(grid)):
             for j in range(len(grid[0])):
                 if grid[i][j] == '1' and not visited[i][j]:
-                    print(count)
                     dfs(grid, i, j, visited)
-                    print(visited)
                     count += 1
         return count
                 
