@@ -15,10 +15,9 @@ class Solution:
         return 0
 
 
-# ### method2: collections.Counter
+### method2: sorting
 
-# from collections import Counter
-# class Solution:
-#     def majorityElement(self, nums: List[int]) -> int:
-#         counts = Counter(nums)
-#         return max(counts, key=counts.get)
+class Solution:
+    def majorityElement(self, nums: List[int]) -> int:
+        nums.sort()
+        return nums[len(nums)//2]
