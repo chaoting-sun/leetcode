@@ -17,6 +17,9 @@ class Solution:
 
 ### method2: sorting
 
+# time complexity: O(NlogN)
+# space complexity: O(1)
+
 class Solution:
     def majorityElement(self, nums: List[int]) -> int:
         nums.sort()
