@@ -5,6 +5,13 @@ class Solution:
         i = 1
         l = len(tokens)
 
+        operate = {
+            '+': lambda x, y: x + y,
+            '-': lambda x, y: x - y,
+            '*': lambda x, y: x * y,
+            '/': lambda x, y: int(x / y)
+        }
+
         while i < l:
             while i < l and tokens[i].lstrip('-').isdigit():
                 stack.append(int(tokens[i]))
@@ -15,15 +22,7 @@ class Solution:
                 
                 while i < l and not tokens[i].lstrip('-').isdigit():
                     prev1 = stack.pop()
-
-                    if tokens[i] == '+':
-                        prev2 = prev1 + prev2
-                    elif tokens[i] == '-':
-                        prev2 = prev1 - prev2
-                    elif tokens[i] == '*':
-                        prev2 = prev1 * prev2
-                    elif tokens[i] == '/':
-                        prev2 = int(prev1 / prev2)
+                    prev2 = operate[tokens[i]](prev1, prev2)
                     i += 1
                 
                 stack.append(prev2)
