@@ -4,6 +4,12 @@
 #         self.val = x
 #         self.next = None
 
+### method1: slow and fast; two pointers
+
+# slow pointer -> turtle; fast point -> rabbit
+# time complexity: O(N)
+# space complexity: O(1)
+
 class Solution:
     def hasCycle(self, head: Optional[ListNode]) -> bool:
         if not head:
@@ -11,12 +17,11 @@ class Solution:
 
         slow, fast = head, head.next
 
-        while fast:
+        while fast and fast.next:
             slow = slow.next
-            for i in range(2):
-                fast = fast.next
-                if fast == slow:
-                    return True
-                if fast == None:
-                    return False
+            fast = fast.next.next
+
+            # when the rabbit meet the turtle
+            if slow == fast:
+                return True
         return False
