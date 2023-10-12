@@ -1,24 +1,24 @@
-### method1: hashtable
+### method1: hash table
 
 class Solution:
     def majorityElement(self, nums: List[int]) -> int:
-        n_chars = {}
-        for i in range(len(nums)):
-            if nums[i] in n_chars:
-                n_chars[nums[i]] += 1
-            else:
-                n_chars[nums[i]] = 1
-        max_k, max_v = 0, 0
-        for k, v in n_chars.items():
-            if v > max_v:
-                max_k, max_v = k, v
-        return max_k
+        n = len(nums)
+        m = defaultdict(int)
+        
+        for num in nums:
+            m[num] += 1
+
+        n //= 2
+        for k, v in m.items():
+            if v > n:
+                return k
+        return 0
 
 
-### method2: counter
+# ### method2: collections.Counter
 
-from collections import Counter
-class Solution:
-    def majorityElement(self, nums: List[int]) -> int:
-        counts = Counter(nums)
-        return max(counts, key=counts.get)
+# from collections import Counter
+# class Solution:
+#     def majorityElement(self, nums: List[int]) -> int:
+#         counts = Counter(nums)
+#         return max(counts, key=counts.get)
