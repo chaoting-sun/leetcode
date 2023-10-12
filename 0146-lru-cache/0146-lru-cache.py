@@ -13,14 +13,20 @@ class Node:
 class LRUCache:
     def __init__(self, capacity: int):
         self.capacity = capacity
-        self.pairs = {} # 
+        self.pairs = {}
         
         self.head = Node(0, 0)
         self.tail = Node(0, 0)
         self.head.next = self.tail
         self.tail.prev = self.head
 
-    def remove(self, key):
+    def remove_key_in_dict(self, key):
+        del self.pairs[key]
+
+    def update_key_in_dict(self, key, node):
+        self.pairs[key] = node
+
+    def remove_key_in_dll(self, key):
         node = self.pairs[key]
         node.prev.next = node.next
         node.next.prev = node.prev
@@ -28,31 +34,28 @@ class LRUCache:
         del self.pairs[key]
         return value
     
-    def add(self, key, value):
+    def add_key_in_dll(self, key, value):
         node = Node(key, value, self.tail.prev, self.tail)
         self.tail.prev.next = node
         self.tail.prev = node
         self.pairs[key] = node
+        return node
 
     def get(self, key: int) -> int:
-        # if the key exists, remove the key in dll, and add the key at the tail
-        # if not, return -1
         if key in self.pairs:
-            value = self.remove(key)
-            self.add(key, value)
+            value = self.remove_key_in_dll(key)
+            self.add_key_in_dll(key, value)
             return value
         return -1
 
     def put(self, key: int, value: int) -> None:
-        # if the key exists, remove the key in dll, and add the key at the tail
-        # if not, add the key at the tail
         if key in self.pairs:
-            self.remove(key)
-            self.add(key, value)
-        else:
-            if len(self.pairs) == self.capacity:
-                self.remove(self.head.next.key)
-            self.add(key, value)
+            self.remove_key_in_dll(key)
+        elif len(self.pairs) == self.capacity:
+            self.remove_key_in_dll(self.head.next.key)
+
+        node = self.add_key_in_dll(key, value)
+        self.update_key_in_dict(key, node)
 
 # Your LRUCache object will be instantiated and called as such:
 # obj = LRUCache(capacity)
