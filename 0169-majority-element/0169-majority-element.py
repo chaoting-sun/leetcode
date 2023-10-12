@@ -1,3 +1,5 @@
+### method1: hashtable
+
 class Solution:
     def majorityElement(self, nums: List[int]) -> int:
         n_chars = {}
@@ -11,3 +13,12 @@ class Solution:
             if v > max_v:
                 max_k, max_v = k, v
         return max_k
+
+
+### method2: counter
+
+from collections import Counter
+class Solution:
+    def majorityElement(self, nums: List[int]) -> int:
+        counts = Counter(nums)
+        return max(counts, key=counts.get)
