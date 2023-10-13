@@ -28,20 +28,17 @@ class Solution:
         return tail
 
 
+
+
 class Solution:
     def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        if not head or not head.next:
-            return head
-        
         prevNode = None
         currNode = head
-        nextNode = head.next
 
-        while nextNode:
+        while currNode:
+            nextNode = currNode.next
             currNode.next = prevNode
             prevNode = currNode
             currNode = nextNode
-            nextNode = nextNode.next
-        currNode.next = prevNode
-        return currNode
+        return prevNode
 
