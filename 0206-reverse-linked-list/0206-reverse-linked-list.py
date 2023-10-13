@@ -16,7 +16,6 @@ class Solution:
 
         tail = curr = NodeList[-1]
         for i in range(len(NodeList)-2, -1, -1):
-            print(NodeList[i])
             curr.next = NodeList[i]
             curr = NodeList[i]
         NodeList[0].next = None
