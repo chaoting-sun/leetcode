@@ -17,5 +17,3 @@ class Solution:
                     dfs(grid, i, j, visited)
                     count += 1
         return count
-                
-        
