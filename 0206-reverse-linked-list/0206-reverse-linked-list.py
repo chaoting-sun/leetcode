@@ -28,7 +28,10 @@ class Solution:
         return tail
 
 
+### method2: two pointers
 
+# time complexity: O(N)
+# space complexity: O(1)
 
 class Solution:
     def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
@@ -42,3 +45,19 @@ class Solution:
             currNode = nextNode
         return prevNode
 
+
+### method3: backtracking
+
+# time complexity: O(N)
+# space complexity: O(1)
+
+class Solution:
+    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        def backtracking(prevNode, currNode):
+            if not currNode:
+                return prevNode
+            
+            nextNode = currNode.next
+            currNode.next = prevNode
+            return backtracking(currNode, nextNode)
+        return backtracking(None, head)
