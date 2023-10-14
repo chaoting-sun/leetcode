@@ -3,10 +3,6 @@ class Solution:
       rec = {}
       for n in nums:
         if n in rec:
-          rec[n] += 1
+          return True
         else:
           rec[n] = 1
-      for v in rec.values():
-        if v >= 2:
-          return True
-      return False
