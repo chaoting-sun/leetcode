@@ -33,6 +33,9 @@ class Solution:
 # intuition: For a node, if all of its child nodes have been visited and found no cycles. Next time if this node are found from the other nodes, we can pass it.
 # source: https://leetcode.com/problems/course-schedule/solutions/658275/c-dfs-easiest-solution-with-explanation-my-1st-approach/?envType=list&envId=rab78cw1
 
+# time complexity: O(E+V)
+# space complexity: O(E+V)
+
 class Solution:
     def isCyclic(self, courses, c, visited):
         if visited[c] == 1:
@@ -58,3 +61,6 @@ class Solution:
             if self.isCyclic(courses, i, visited):
                 return False
         return True
+
+
+### more: https://leetcode.com/problems/course-schedule/?envType=list&envId=rab78cw1
