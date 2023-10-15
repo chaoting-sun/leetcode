@@ -1,26 +1,25 @@
+# push -> directly push to stk1
+# pop -> if stk2, then pop stk2; if not, move all elements from stk1 to stk2, then pop
+
 class MyQueue:
 
     def __init__(self):
         self.stk1, self.stk2 = [], []
 
-    def _move(self, s_from, s_to):
-        while len(s_from):
-            s_to.append(s_from.pop())
+    def move(self):
+        if not self.stk2:
+            while self.stk1:
+                self.stk2.append(self.stk1.pop())
 
     def push(self, x: int) -> None:
-        print('push')
-        if not len(self.stk1):
-            self._move(self.stk2, self.stk1)
         self.stk1.append(x)
 
     def pop(self) -> int:
-        if not len(self.stk2):
-            self._move(self.stk1, self.stk2)
+        self.move()
         return self.stk2.pop()
 
     def peek(self) -> int:
-        if not len(self.stk2):
-            self._move(self.stk1, self.stk2)
+        self.move()
         return self.stk2[-1]
 
     def empty(self) -> bool:
