@@ -1,3 +1,10 @@
+### method: stack (so hard)
+
+# helpful source: https://www.youtube.com/watch?v=081AqOuasw0
+
+# time complexity: O(N)
+# space complexity: O(N)
+
 class Solution:
     def calculate(self, s: str) -> int:
         sign = 1 # 1 or -1
@@ -19,12 +26,15 @@ class Solution:
             elif s[i] == '-':
                 sign = -1
             elif s[i] == '(':
-                # find new (, then store the previously calculated result
+                # if we find (, then we start a new calculation
+                # so we store the previous res and sign in the stack
                 stk.append(res)
                 stk.append(sign)
                 res = 0
                 sign = 1
             elif s[i] == ')':
+                # if we find ), then we stop current calculation
+                # in the same parenthesis level
                 res *= stk.pop() # previous sign
                 res += stk.pop() # previous result
             i += 1
