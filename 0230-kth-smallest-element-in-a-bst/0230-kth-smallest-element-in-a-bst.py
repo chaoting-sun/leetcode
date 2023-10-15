@@ -19,7 +19,26 @@ class Solution:
         return dfs(root)[k-1]
 
 
+### method2: dfs (better)
+# time complexity: O(N)
+# space comlexity: O(1)
+
+class Solution:
+    def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
+        def dfs(root, cnt):
+            if not root:
+                return cnt
+            if root.left: dfs(root.left, cnt)
+            cnt -= 1
+            if cnt == 0:
+                return root.val
+            if root.right: dfs(root.right, cnt)
+        return dfs(root, cnt)
+
+
 ### method2: binary search
+# time complexity: balanced -> O(N); not balanced -> O(N^2)
+# space complexity: O(1)
 
 class Solution:
     def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
