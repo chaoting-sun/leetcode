@@ -1,5 +1,10 @@
-# push -> directly push to stk1
-# pop -> if stk2, then pop stk2; if not, move all elements from stk1 to stk2, then pop
+# two stacks: use stk1 to push and use stk2 to pop and peek.
+# if we want to pop or peek and if stk2 is empty, move all
+# elements from stk1 to stk2.
+
+# amortized time complexity: O(1)
+# because for each element, at most, they are pushed into stk1,
+# popped from stk1, pushed into stk2, and popped from stk2.
 
 class MyQueue:
 
