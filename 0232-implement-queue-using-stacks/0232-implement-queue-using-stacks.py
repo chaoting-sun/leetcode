@@ -14,13 +14,11 @@ class MyQueue:
         self.stk1.append(x)
 
     def pop(self) -> int:
-        print('pop')
         if not len(self.stk2):
             self._move(self.stk1, self.stk2)
         return self.stk2.pop()
 
     def peek(self) -> int:
-        print('peek')
         if not len(self.stk2):
             self._move(self.stk1, self.stk2)
         return self.stk2[-1]
