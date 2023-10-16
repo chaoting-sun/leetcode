@@ -1,17 +1,11 @@
 class Solution:
     def isAnagram(self, s: str, t: str) -> bool:
-        sdict = {}
+        count = defaultdict(int)
         for ch in s:
-            if ch in sdict:
-                sdict[ch] += 1
-            else:
-                sdict[ch] = 1
+            count[ch] += 1
         for ch in t:
-            if ch not in sdict:
-                return False
-            else:
-                sdict[ch] -=1
-        for v in sdict.values():
+            count[ch] -=1
+        for v in count.values():
             if v != 0:
                 return False
         return True
