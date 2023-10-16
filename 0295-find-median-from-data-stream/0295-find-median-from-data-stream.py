@@ -28,3 +28,8 @@ class MedianFinder:
 # obj = MedianFinder()
 # obj.addNum(num)
 # param_2 = obj.findMedian()
+
+
+# cleaner code:
+# 1. https://leetcode.com/problems/find-median-from-data-stream/solutions/411354/two-heap-approach-with-python-o-log-n-insert-o-1-median/?envType=list&envId=rab78cw1
+# 2. https://leetcode.com/problems/find-median-from-data-stream/solutions/696658/python-logic-explained-with-2-heaps-clean-code/?envType=list&envId=rab78cw1
