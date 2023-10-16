@@ -15,6 +15,8 @@ class Solution:
         return self.binarySearch(1, n+1)
 
 
+### source: https://leetcode.com/problems/first-bad-version/solutions/1591935/python-solution-easy-to-understand-binary-search-with-detailed-explanation/?envType=list&envId=rab78cw1
+
 class Solution:
     def firstBadVersion(self, n: int) -> int:
         l, r = 1, n
