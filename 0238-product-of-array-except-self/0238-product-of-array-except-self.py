@@ -34,3 +34,5 @@ class Solution:
             ans[i] *= curr
             curr *= nums[i]
         return ans
+
+# nice source: https://leetcode.com/problems/product-of-array-except-self/solutions/1342916/3-minute-read-mimicking-an-interview/?envType=list&envId=rab78cw1
