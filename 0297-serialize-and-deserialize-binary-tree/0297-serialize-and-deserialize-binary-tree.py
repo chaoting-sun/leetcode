@@ -5,6 +5,8 @@
 #         self.left = None
 #         self.right = None
 
+# nice source: https://www.youtube.com/watch?v=u4JAi2JJhI8
+
 class Codec:
 
     def serialize(self, root):
