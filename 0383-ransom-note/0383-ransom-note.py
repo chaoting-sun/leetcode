@@ -29,7 +29,7 @@ class Solution:
         for ch in magazine:
             alphabet[ord(ch)-ord('a')] += 1
         for ch in ransomNote:
-            alphabet[ord(ch)-ord('a')] -= 1
-            if alphabet[ord(ch)-ord('a')] < 0:
+            if alphabet[ord(ch)-ord('a')] == 0:
                 return False
+            alphabet[ord(ch)-ord('a')] -= 1
         return True
