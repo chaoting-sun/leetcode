@@ -36,7 +36,11 @@ class Solution:
         return ans
 
 
-### bfs (smarter)
+### bfs (smarter; multi-source bfs; directly change mat)
+
+# source: https://leetcode.com/problems/01-matrix/solutions/3920110/94-87-multi-source-bfs-queue/?envType=list&envId=rab78cw1
+# time complexity: O(mn)
+# space complexity: O(mn)
 
 class Solution:
     def updateMatrix(self, mat: List[List[int]]) -> List[List[int]]:
@@ -61,4 +65,39 @@ class Solution:
                 if 0 <= i2 < m and 0 <= j2 < n and mat[i2][j2] > mat[i1][j1] + 1:
                     mat[i2][j2] = mat[i1][j1] + 1
                     q.append((i2, j2))
+        return mat
+
+
+### bfs (smartest; multi-source)
+
+class Solution:
+    def updateMatrix(self, mat: List[List[int]]) -> List[List[int]]:
+        m, n = len(mat), len(mat[0])
+
+        q = deque()
+        seen = set()
+
+        for i in range(m):
+            for j in range(n):
+                if mat[i][j] == 0:
+                    q.append((i, j))
+                    seen.add((i, j))
+        
+        level = 1
+
+        while q:
+            size = len(q)
+
+            for i in range(size):
+                i1, j1 = q.popleft()
+
+                for dx, dy in [(0, 1), (0, -1), (1, 0), (-1, 0)]:
+                    i2 = i1 + dx
+                    j2 = j1 + dy
+                    if 0 <= i2 < m and 0 <= j2 < n and (i2, j2) not in seen:
+                        mat[i2][j2] = level
+                        seen.add((i2, j2))
+                        q.append((i2, j2))
+            level += 1
+        
         return mat
