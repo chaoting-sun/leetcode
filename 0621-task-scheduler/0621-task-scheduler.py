@@ -2,7 +2,7 @@
 
 # schedule the most frequent task first, and fill in the others
 # source: https://www.youtube.com/watch?v=siNqiP6tk94
-# time complexity: O(N)
+# time complexity: O(N+m); m is the idle time
 # space complexity: O(N)
 
 class Solution:
@@ -17,6 +17,9 @@ class Solution:
 
 
 ### method2: heap + queue
+
+# time complexity: O(N+m); m is the idle time
+# space complexity: O(N)
 
 class Solution:
     def leastInterval(self, tasks: List[str], n: int) -> int:
@@ -33,7 +36,6 @@ class Solution:
 
         while maxheap or waitingList:
             time += 1
-            print(time)
 
             if maxheap:
                 negNum, task = heapq.heappop(maxheap)
