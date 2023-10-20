@@ -1,26 +1,28 @@
+### method: dfs; hashmap
+
 class Solution:
     def accountsMerge(self, accounts: List[List[str]]) -> List[List[str]]:
-        mp = defaultdict(list)
+        em_acc_map = defaultdict(list)
         for i in range(len(accounts)):
             for j in range(1, len(accounts[i])):
-                mp[accounts[i][j]].append(i)
+                em_acc_map[accounts[i][j]].append(i)
         
-        def dfs(email, visited, mp, ans):
+        def dfs(email, visited, em_acc_map, ans):
             ans[-1].append(email)
             visited[email] = True
 
-            for i in mp[email]:
+            for i in em_acc_map[email]:
                 for j in range(1, len(accounts[i])):
                     if not visited[accounts[i][j]]:
-                        dfs(accounts[i][j], visited, mp, ans)
+                        dfs(accounts[i][j], visited, em_acc_map, ans)
 
         ans = []        
-        visited = { email: False for email, _ in mp.items() }
+        visited = { em: False for em, _ in em_acc_map.items() }
 
-        for email, ids in mp.items():
-            if not visited[email]:
+        for em, ids in em_acc_map.items():
+            if not visited[em]:
                 ans.append([accounts[ids[0]][0]])
-                dfs(email, visited, mp, ans)
+                dfs(em, visited, em_acc_map, ans)
 
         for i in range(len(ans)):
             ans[i] = [ans[i][0]] + sorted(ans[i][1:])
