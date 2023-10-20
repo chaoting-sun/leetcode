@@ -78,5 +78,3 @@ class Solution:
                     if image[newx][newy] == startColor:
                         stack.append((newx, newy))
         return image
-
-
