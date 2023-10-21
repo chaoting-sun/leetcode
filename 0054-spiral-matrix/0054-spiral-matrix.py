@@ -1,10 +1,5 @@
-class Solution(object):
-    def spiralOrder(self, matrix):
-        """
-        :type matrix: List[List[int]]
-        :rtype: List[int]
-        """
-
+class Solution:
+    def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
         nRows, nCols = len(matrix), len(matrix[0])
         nEle = nRows * nCols
         upRight, downRight, downLeft, upLeft = nCols, nRows, -1, -1
