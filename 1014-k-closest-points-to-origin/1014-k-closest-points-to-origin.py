@@ -19,10 +19,11 @@ class Solution:
         dis = [x**2+y**2 for x, y in points]
         maxheap = []
         for i, d in enumerate(dis):
-            heapq.heappush(maxheap, (-d, points[i]))
+            heapq.heappush(maxheap, (-d, i))
             if len(maxheap) > k:
                 heapq.heappop(maxheap)
         ans = []
         while maxheap:
-            ans.append(heapq.heappop(maxheap)[1])
+            i = heapq.heappop(maxheap)[1]
+            ans.append(points[i])
         return ans
