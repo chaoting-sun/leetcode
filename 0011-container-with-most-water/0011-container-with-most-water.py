@@ -1,21 +1,17 @@
 ### method1: brute force (TLE)
 
-# class Solution(object):
-#     def maxArea(self, height):
-#         """
-#         :type height: List[int]
-#         :rtype: int
-#         """
-#         maxArea = 0
+class Solution:
+    def maxArea(self, height: List[int]) -> int:
+        maxArea = 0
 
-#         for i in range(len(height)-1):
-#             for j in range(i+1, len(height)):
-#                 area = (j-i) * min(height[i], height[j])
-#                 maxArea = max(maxArea, area)
-#         return maxArea
+        for i in range(len(height)-1):
+            for j in range(i+1, len(height)):
+                area = (j-i) * min(height[i], height[j])
+                maxArea = max(maxArea, area)
+        return maxArea
 
 
-### method2: two pointer
+### method2: two pointers
 
 class Solution(object):
     def maxArea(self, height):
