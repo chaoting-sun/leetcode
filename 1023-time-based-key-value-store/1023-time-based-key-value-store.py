@@ -1,3 +1,7 @@
+### method: hash map + binary search
+# time complexity: (# set * O(1) + # get * O(lgN))
+# space complexity: O(N)
+
 class TimeMap:
 
     def __init__(self):
