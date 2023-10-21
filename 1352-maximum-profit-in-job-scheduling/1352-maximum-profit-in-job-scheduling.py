@@ -1,9 +1,15 @@
-### method: dynamic programming
+### method: dynamic programming (weighted interval scheduling)
+
+# time complexity: O(NlogN) (sort by finish time)
+# space complexity: O(N)
 
 from numpy import argsort
 class Solution:
     def jobScheduling(self, startTime: List[int], endTime: List[int], profit: List[int]) -> int:
         n = len(startTime)
+
+        # a good way:
+        # jobs = sorted(zip(startTime, endTime, profit), key=lambda v: v[1])
 
         sorted_ids = argsort(endTime)
         startTime = [startTime[i] for i in sorted_ids]
