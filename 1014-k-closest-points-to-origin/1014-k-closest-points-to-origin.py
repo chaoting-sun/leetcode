@@ -27,3 +27,39 @@ class Solution:
             i = heapq.heappop(maxheap)[1]
             ans.append(points[i])
         return ans
+
+
+### method3: quick select (modified version from quick sort)
+
+# source: https://leetcode.com/problems/k-closest-points-to-origin/solutions/220235/java-three-solutions-to-this-classical-k-th-problem/comments/430257
+# time complexity: best O(N); worst O(N^2) (N+N/2+N/4+...)
+# space complexity: O(1) (we directly modify the array)
+
+# class Solution:
+#     def kClosest(self, points: List[List[int]], K: int) -> List[List[int]]:
+        
+#         def quickSelect(A, l, r):
+#             pivot = A[r] # use the right-most element as pivot
+#             i = l
+#             for j in range(l, r):
+#                 # switch element to left-most if smaller than pivot
+#                 if A[j][0]**2 + A[j][1]**2 <= pivot[0]**2 + pivot[1]**2:
+#                     A[i], A[j] = A[j], A[i]
+#                     i += 1
+#             # put pivot into correct place
+#             A[i], A[r] = A[r], A[i]
+            
+#             return i
+        
+
+#         n = len(points)
+#         l, r = 0, n-1
+        
+#         while l <= r:
+#             mid = quickSelect(points, l, r)
+
+#             if mid == K-1: return points[:K]
+#             elif mid < K-1: 
+#                 l = mid + 1
+#             else:
+#                 r = mid - 1
