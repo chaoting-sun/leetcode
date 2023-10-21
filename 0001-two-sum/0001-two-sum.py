@@ -1,56 +1,40 @@
 ### method1: Brute force
 
-# class Solution(object):
-#     def twoSum(self, nums, target):
-#         """
-#         :type nums: List[int]
-#         :type target: int
-#         :rtype: List[int]
-#         """
-#         for i in range(len(nums)-1):
-#             for j in range(i+1, len(nums)):
-#                 if nums[i] + nums[j] == target:
-#                     return [i, j]
-#         return []
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        for i in range(len(nums)-1):
+            for j in range(i+1, len(nums)):
+                if nums[i] + nums[j] == target:
+                    return [i, j]
+        return []
 
 
 ### method2: argsort
 
-# import numpy as np
+import numpy as np
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        i = 0
+        j = len(nums) - 1
 
-# class Solution(object):
-#     def twoSum(self, nums, target):
-#         """
-#         :type nums: List[int]
-#         :type target: int
-#         :rtype: List[int]
-#         """
-#         i = 0
-#         j = len(nums) - 1
+        nums = np.array(nums)
+        ids = np.argsort(nums)
+        nums = nums[ids] # sort
 
-#         nums = np.array(nums)
-#         ids = np.argsort(nums)
-#         nums = nums[ids] # sort
-
-#         while i < j:
-#             if nums[i] + nums[j] == target:
-#                 return [ids[i], ids[j]]
-#             elif nums[i] + nums[j] < target:
-#                 i += 1
-#             elif nums[i] + nums[j] > target:
-#                 j -= 1
-#         return []
+        while i < j:
+            if nums[i] + nums[j] == target:
+                return [ids[i], ids[j]]
+            elif nums[i] + nums[j] < target:
+                i += 1
+            elif nums[i] + nums[j] > target:
+                j -= 1
+        return []
 
 
 ### method3: hash table
 
-class Solution(object):
-    def twoSum(self, nums, target):
-        """
-        :type nums: List[int]
-        :type target: int
-        :rtype: List[int]
-        """
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
         hash_table = { nums[i]: i for i in range(len(nums)) }
         for i in range(len(nums)):
             left = target - nums[i]
