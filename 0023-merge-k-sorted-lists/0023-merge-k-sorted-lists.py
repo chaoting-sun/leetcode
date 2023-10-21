@@ -76,11 +76,11 @@ class Solution:
 ### method3: merge sort
 
 # Definition for singly-linked list.
-# class ListNode(object):
+# class ListNode:
 #     def __init__(self, val=0, next=None):
 #         self.val = val
 #         self.next = next
-class Solution(object):
+class Solution:
     def merge2Lists(self, l1, l2):
         dummyNode = ListNode(0, None)
         tail = dummyNode
