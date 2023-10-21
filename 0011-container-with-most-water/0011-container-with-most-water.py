@@ -13,12 +13,8 @@ class Solution:
 
 ### method2: two pointers
 
-class Solution(object):
-    def maxArea(self, height):
-        """
-        :type height: List[int]
-        :rtype: int
-        """
+class Solution:
+    def maxArea(self, height: List[int]) -> int:
         l = 0
         r = len(height) - 1
         maxArea = 0
