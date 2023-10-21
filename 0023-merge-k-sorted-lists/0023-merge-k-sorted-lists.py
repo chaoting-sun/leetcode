@@ -1,16 +1,12 @@
 ### method1: O(Nk)
 
 # Definition for singly-linked list.
-# class ListNode(object):
+# class ListNode:
 #     def __init__(self, val=0, next=None):
 #         self.val = val
 #         self.next = next
-class Solution(object):
-    def mergeKLists(self, lists):
-        """
-        :type lists: List[ListNode]
-        :rtype: ListNode
-        """
+class Solution:
+    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
         dummyNode = ListNode(0, None)
 
         for i in range(len(lists)):
@@ -55,16 +51,12 @@ class Solution(object):
 import heapq
 
 # Definition for singly-linked list.
-# class ListNode(object):
+# class ListNode:
 #     def __init__(self, val=0, next=None):
 #         self.val = val
 #         self.next = next
-class Solution(object):
-    def mergeKLists(self, lists):
-        """
-        :type lists: List[ListNode]
-        :rtype: ListNode
-        """
+class Solution:
+    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
         heap = []
         for l in lists:
             while l:
@@ -127,4 +119,3 @@ class Solution(object):
         :rtype: ListNode
         """
         return self.merge(lists, 0, len(lists)-1)
-
