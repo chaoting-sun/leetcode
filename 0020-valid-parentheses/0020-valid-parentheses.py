@@ -1,9 +1,5 @@
-class Solution(object):
-    def isValid(self, s):
-        """
-        :type s: str
-        :rtype: bool
-        """
+class Solution:
+    def isValid(self, s: str) -> bool:
         pairs = { ')': '(',
                   ']': '[',
                   '}': '{' }
