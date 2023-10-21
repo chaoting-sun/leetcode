@@ -29,7 +29,7 @@ class Solution:
         return ans
 
 
-### method3: quick select (modified version from quick sort)
+### method3: quick select (modified version from quick sort; TLE)
 
 # source: https://leetcode.com/problems/k-closest-points-to-origin/solutions/220235/java-three-solutions-to-this-classical-k-th-problem/comments/430257
 # time complexity: best O(N); worst O(N^2) (N+N/2+N/4+...)
