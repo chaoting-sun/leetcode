@@ -113,9 +113,5 @@ class Solution:
         right = self.merge(lists, c+1, r)
         return self.merge2Lists(left, right)
 
-    def mergeKLists(self, lists):
-        """
-        :type lists: List[ListNode]
-        :rtype: ListNode
-        """
+    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
         return self.merge(lists, 0, len(lists)-1)
