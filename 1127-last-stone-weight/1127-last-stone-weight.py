@@ -1,3 +1,7 @@
+### method1: heap
+# time complexity: O(NlogN)
+# space complexity: O(N)
+
 class Solution:
     def lastStoneWeight(self, stones: List[int]) -> int:
         maxheap = []
@@ -12,8 +16,6 @@ class Solution:
             if maxv1 > maxv2:
                 newv = maxv1 - maxv2
                 heapq.heappush(maxheap, -newv)
-
-            print(maxheap)
         
         if not maxheap:
             return 0
