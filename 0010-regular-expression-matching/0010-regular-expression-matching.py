@@ -1,5 +1,6 @@
 # really hard
 
+# method: dfs
 # source: https://www.youtube.com/watch?v=HAA8mgxlov8&t=10s
 
 class Solution:
