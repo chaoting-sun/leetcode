@@ -47,3 +47,6 @@ class Solution:
                     """
                     dp[i][j] = dp[i-1][j]
         return dp[m][n]
+
+
+### dp + space optimization: https://leetcode.com/problems/distinct-subsequences/solutions/2738744/recursion-to-dp-optimise-easy-understanding/?envType=list&envId=rr2ss0g5
