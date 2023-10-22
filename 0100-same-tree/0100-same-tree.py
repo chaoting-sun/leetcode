@@ -1,3 +1,8 @@
+### method:dfs
+
+# time complexity: O(N)
+# space complexity: O(1)
+
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
@@ -19,4 +24,3 @@ class Solution:
             else:
                 return False
         return hasCommonValue(p, q)
-        
