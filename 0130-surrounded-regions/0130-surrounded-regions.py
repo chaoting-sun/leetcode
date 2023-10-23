@@ -41,6 +41,11 @@ class Solution:
                     board[i][j] = 'O'
 
 
+### method2: bfs
+
+# time complexity: O(mn)
+# space complexity: O(mn)
+
 class Solution:
     def solve(self, board: List[List[str]]) -> None:
         """
