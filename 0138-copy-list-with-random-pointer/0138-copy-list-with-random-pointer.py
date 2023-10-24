@@ -41,9 +41,10 @@ class Solution:
         return cloneHead.next
 
 
-### optimization - make the space complexity O(1)
+### optimization - 3 pass to make the space complexity O(1)
 
-# add new nodes in the original llist, in which each new node is at the right side of the cloned node. then, the random pointer of each new node is the next node of the random pointer of its previous node.
+# source: https://leetcode.com/problems/copy-list-with-random-pointer/solutions/259563/Detailed-Explanation-Constant-Space-C++JavaScript/
+# method: add new nodes in the original llist, in which each new node is at the right side of the cloned node. then, the random pointer of each new node is the next node of the random pointer of its previous node.
 
 # time complexity: O(N)
 # space complexity: O(1)
