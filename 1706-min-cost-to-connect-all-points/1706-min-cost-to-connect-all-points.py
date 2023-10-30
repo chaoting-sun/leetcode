@@ -51,3 +51,38 @@ class Solution:
                 print(i, j, w, uf.parent)
 
         return totalWeights
+
+
+### Prim's Algorithm
+
+class Solution:
+    def weight(self, p1, p2):
+        return abs(p1[0]-p2[0]) + abs(p1[1]-p2[1])
+
+    def minCostConnectPoints(self, points: List[List[int]]) -> int:
+        n = len(points)
+        keys = [float('inf')] * n
+        pars = [None] * n
+        keys[0] = 0
+
+        minheap = [(0, 0)] # (w, u)
+        mstPoints = set()
+        totalWeights = 0
+
+        while minheap:
+            w, u = heapq.heappop(minheap)
+            print(w, u)
+            if u in mstPoints:
+                continue
+            
+            mstPoints.add(u)
+            totalWeights += w
+
+            for v in range(n):
+                if v not in mstPoints:
+                    w = self.weight(points[u], points[v])
+                    heapq.heappush(minheap, (w, v))
+
+            if len(mstPoints) == n:
+                break
+        return totalWeights
