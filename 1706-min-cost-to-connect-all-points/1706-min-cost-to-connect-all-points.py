@@ -1,5 +1,8 @@
 ### method1: Kruskal's Algorithm
 
+# time complexity: O(V^2 lgV)
+# space complexity: O(V^2)
+
 class UnionFind:
     def __init__(self, n):
         self.rank = [1] * n
@@ -34,6 +37,7 @@ class Solution:
         uf = UnionFind(n)
 
         minheap = []
+        
         for i in range(n-1):
             for j in range(i+1, n):
                 w = self.weight(points[i], points[j])
@@ -48,12 +52,14 @@ class Solution:
                 totalWeights += w
                 uf.union(i, j)
                 cnt += 1
-                print(i, j, w, uf.parent)
 
         return totalWeights
 
 
-### Prim's Algorithm
+### method2: Prim's Algorithm
+
+# time complexity: O(V^2 lgV)
+# space complexity: O(V^2)
 
 class Solution:
     def weight(self, p1, p2):
@@ -61,9 +67,6 @@ class Solution:
 
     def minCostConnectPoints(self, points: List[List[int]]) -> int:
         n = len(points)
-        keys = [float('inf')] * n
-        pars = [None] * n
-        keys[0] = 0
 
         minheap = [(0, 0)] # (w, u)
         mstPoints = set()
@@ -71,7 +74,6 @@ class Solution:
 
         while minheap:
             w, u = heapq.heappop(minheap)
-            print(w, u)
             if u in mstPoints:
                 continue
             
@@ -86,3 +88,7 @@ class Solution:
             if len(mstPoints) == n:
                 break
         return totalWeights
+
+
+### method2.1: Prim's Algorithm (optimized) (cannot understand)
+# source: https://leetcode.com/problems/min-cost-to-connect-all-points/solutions/843940/c-mst-kruskal-prim-s-complete-graph/
