@@ -19,19 +19,48 @@ class Solution:
         return dfs(root)[k-1]
 
 
-### method1.1: optimized dfs (recursion)
+### method1.1: optimized dfs (recursion; TLE)
+# source: https://leetcode.com/problems/kth-smallest-element-in-a-bst/solutions/3606533/python-recursion-without-stack-easy/
 # time complexity: O(N)
 # space comlexity: O(1)
 
 class Solution:
     def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
-        def dfs(root, cnt):
-            if root.left: dfs(root.left, cnt)
+        cnt = k
+        ans = 0
+
+        def dfs(root):
+            nonlocal cnt, ans
+
+            if root.left: dfs(root.left)
             cnt -= 1
+            print(root.val, cnt)
             if cnt == 0:
-                return root.val
-            if root.right: dfs(root.right, cnt)
-        return dfs(root, cnt)
+                ans = root.val
+                return
+            if root.right: dfs(root.right)
+        # return dfs(root)
+        dfs(root)
+        return ans
+
+# or
+
+class Solution:
+    def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
+        def inorder(root):
+            nonlocal k
+            if not root:
+                return None
+
+            left = inorder(root.left)
+            if left:
+                return left
+            k -= 1
+            if k == 0:
+                 return root.val
+            return inorder(root.right)
+        return inorder(root)
+
 
 ### method1.2: dfs (iterative)
 
