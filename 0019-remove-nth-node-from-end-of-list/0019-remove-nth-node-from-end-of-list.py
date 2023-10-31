@@ -3,6 +3,13 @@
 #     def __init__(self, val=0, next=None):
 #         self.val = val
 #         self.next = next
+
+
+### method1: two-pass with a dummy node
+
+# time complexity: O(N)
+# space complexity: O(1)
+
 class Solution:
     def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
         length = 0
@@ -21,4 +28,22 @@ class Solution:
             nMove -= 1
         
         curr.next = curr.next.next
+        return dummy.next
+
+
+### method2: one-pass with a hash table
+
+# time complexity: O(N)
+# space complexity: O(N)
+
+class Solution:
+    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        nodes = []
+        dummy = ListNode(next=head)
+        curr = dummy
+
+        while curr:
+            nodes.append(curr)
+            curr = curr.next
+        nodes[-n-1].next = nodes[-n].next
         return dummy.next
