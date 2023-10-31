@@ -65,3 +65,24 @@ class Solution:
 
         max_sum, _ = dfs(root)
         return max_sum
+
+
+### better
+
+class Solution:
+    def maxPathSum(self, root: Optional[TreeNode]) -> int:
+        res = float('-inf')
+
+        def backtrack(node):
+            nonlocal res # tells that res is not a local variable
+
+            if not node:
+                return 0
+
+            left = max(0, backtrack(node.left))
+            right = max(0, backtrack(node.right))
+            res = max(res, left+right+node.val)
+            return max(left, right) + node.val
+
+        backtrack(root)
+        return res
