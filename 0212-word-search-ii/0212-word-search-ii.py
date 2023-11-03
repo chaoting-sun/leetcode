@@ -100,3 +100,6 @@ class Solution:
                     t = trie
                     self.dfs(board, i, j, t.chars[ch], ch, ans)
         return ans
+
+
+# another clear and clever code: https://leetcode.com/problems/word-search-ii/solutions/59790/python-dfs-solution-directly-use-trie-implemented/?envType=list&envId=rr2ss0g5
