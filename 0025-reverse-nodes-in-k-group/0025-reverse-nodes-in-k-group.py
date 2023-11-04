@@ -1,3 +1,5 @@
+### method1: AC but slow (mine)
+
 # Definition for singly-linked list.
 # class ListNode:
 #     def __init__(self, val=0, next=None):
@@ -20,7 +22,7 @@ class Solution:
             if cnt != 0:
                 break
 
-            cnt = k
+            cnt = k 
             while cnt:
                 tmp = curr.next
                 curr.next = prev
@@ -34,3 +36,24 @@ class Solution:
             last = tmp
 
         return dummy.next
+
+
+### method2: recursion
+
+class Solution:
+    def reverseKGroup(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+        curr = head
+        cnt = k
+        for i in range(k):
+            if not curr: return head
+            curr = curr.next
+
+        curr = head
+        prev = None
+        for i in range(k):
+            tmp = curr.next
+            curr.next = prev
+            prev = curr
+            curr = tmp
+        head.next = self.reverseKGroup(curr, k)
+        return prev
