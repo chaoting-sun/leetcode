@@ -2,7 +2,7 @@ class Solution:
     def countContiguous(self, n, cache):
         if n in cache:
             return cache[n]
-        cache[n] = (n+1)*n/2 % (10**9 + 7) 
+        cache[n] = (n+1)*n//2 % (10**9 + 7) 
         return cache[n]
 
     def countHomogenous(self, s: str) -> int:
@@ -16,4 +16,4 @@ class Solution:
             number += self.countContiguous(right-left, cache)
             left = right
         
-        return int(number % (10**9 + 7))
+        return number % (10**9 + 7)
