@@ -14,4 +14,20 @@ class Solution:
             if nums[i+1]-nums[i] == 2:
                 return nums[i]+1
 
-        return -1        
+        return -1
+
+
+### method: record existence
+
+# time complexity: O(N)
+# space complexity: O(N)
+
+class Solution:
+    def missingNumber(self, nums: List[int]) -> int:
+        existed = [0] * (len(nums)+1)
+        for n in nums:
+            existed[n] = 1
+        for i, e in enumerate(existed):
+            if e == 0:
+                return i
+        return -1
