@@ -31,3 +31,16 @@ class Solution:
             if e == 0:
                 return i
         return -1
+
+
+### method:
+
+# time complexity: O(N)
+# space complexity: O(1)
+
+class Solution:
+    def missingNumber(self, nums: List[int]) -> int:
+        totalsum = (1 + len(nums)) * len(nums) // 2
+        for n in nums:
+            totalsum -= n
+        return totalsum
