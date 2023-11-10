@@ -12,13 +12,8 @@ else:
 
 class Solution:
     def carFleet(self, target: int, position: List[int], speed: List[int]) -> int:
-        ps = list(zip(position, speed))
-        ps.sort(key=lambda x: x[0])
-        position = [ps[i][0] for i in range(len(ps))]
-        speed = [ps[i][1] for i in range(len(ps))]
-
-        print(position)
-        print(speed)
+        ps = sorted(zip(position, speed), key=lambda x: x[0])
+        position, speed = zip(*ps)
 
         nCarFleet = 1
         currSlow = len(position)-1
@@ -26,7 +21,7 @@ class Solution:
         for i in range(len(position)-2, -1, -1):
             if speed[i] <= speed[currSlow] or \
             (position[currSlow]-position[i]) / (speed[i]-speed[currSlow]) > (target-position[currSlow]) / speed[currSlow]:
-                nCarFleet += 1 # the car_{i-1}
+                nCarFleet += 1
                 currSlow = i
     
         return nCarFleet
