@@ -20,6 +20,7 @@ class Solution:
             for v in adjlist[k]:
                 if not visited[v]:
                     dfs(adjlist, v, visited, ans)
+                    break
 
         ans = []
         dfs(adjlist, curr, visited, ans)
