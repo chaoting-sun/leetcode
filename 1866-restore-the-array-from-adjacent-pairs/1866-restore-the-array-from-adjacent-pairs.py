@@ -1,3 +1,8 @@
+### method: hash table
+
+# time complexity: O(N)
+# space complexity: O(N)
+
 class Solution:
     def restoreArray(self, adjacentPairs: List[List[int]]) -> List[int]:
         adjlist = defaultdict(list)
@@ -11,17 +16,14 @@ class Solution:
                 curr = k
                 break
 
-        visited = { k: False for k in adjlist }
+        def dfs(adjlist, prev, curr, ans):
+            ans.append(curr)
 
-        def dfs(adjlist, k, visited, ans):
-            ans.append(k)
-            visited[k] = True
-
-            for v in adjlist[k]:
-                if not visited[v]:
-                    dfs(adjlist, v, visited, ans)
+            for v in adjlist[curr]:
+                if v != prev:
+                    dfs(adjlist, curr, v, ans)
                     break
 
         ans = []
-        dfs(adjlist, curr, visited, ans)
+        dfs(adjlist, float('-inf'), curr, ans)
         return ans
