@@ -1,71 +1,56 @@
-class Trie:
-    def __init__(self):
-        self.next = {}
+### method1: trie
 
 class Solution:
-    def findMaximumXOR(self, nums: List[int]) -> int:
-        trie = Trie()
+    def __init__(self):
+        self.trie = {}
 
+    def findMaximumXOR(self, nums: List[int]) -> int:
         for num in nums:
-            t = trie
+            node = self.trie
             for i in range(31,-1,-1):
                 bit = num>>i & 1
-                if bit not in t.next:
-                    t.next[bit] = Trie()
-                t = t.next[bit]
+                if bit not in node:
+                    node[bit] = {}
+                node = node[bit]
         
         maxXor = float('-inf')
 
         for num in nums:
-            t = trie
+            node = self.trie
             xor = 0
             for i in range(31,-1,-1):
                 opposite_bit = 1 - (num>>i) & 1
-                if opposite_bit in t.next:
+                if opposite_bit in node:
                     xor = xor | 1<<i
-                    t = t.next[opposite_bit]
+                    node = node[opposite_bit]
                 else:
-                    t = t.next[1-opposite_bit]
+                    node = node[1-opposite_bit]
             maxXor = max(maxXor, xor)
         
         return maxXor
 
 
-class Trie:
-    def __init__(self):
-        self.root={}
-        self.m=0
-    
-    def insert(self,word):
-        node=self.root
-        for ch in word:
-            if ch not in node:
-                node[ch]={}
-            node=node[ch]
-        
-    def compare(self,word,i):
-        node=self.root
-        t=""
-        a,b='0','1'
-        for ch in word:
-            if ch==a and b in node:
-                t+=b
-                node=node[b]
-            elif ch==b and a in node:
-                t+=a
-                node=node[a]
-            else:
-                t+=ch
-                node=node[ch]
-        self.m=max(self.m,int(t,2)^i)
+### method2: prefix
+# nice explanation: https://juejin.cn/post/6957251700885307400?from=search-suggest
+# time complexity: O(N)
+# space complexity: O(N)
 
 class Solution:
     def findMaximumXOR(self, nums: List[int]) -> int:
-        trie=Trie()
-        for i in nums:
-            word="{:032b}".format(i)
-            trie.insert(word)
-        for i in nums:
-            word="{:032b}".format(i)
-            trie.compare(word,i)
-        return trie.m
+        res = 0
+        mask = 0
+
+        for i in range(31, -1, -1):
+            mask = mask | (1 << i)
+            
+            prefixes = set()
+            for num in nums:
+                prefixes.add(num & mask)
+            
+            wantBe = res | 1 << i
+            for p1 in prefixes:
+                p2 = p1 ^ wantBe
+                if p2 in prefixes:
+                    res = wantBe
+                    break
+        return res
