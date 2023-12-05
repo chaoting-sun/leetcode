@@ -69,10 +69,10 @@ class Solution:
         return solve(nums, 0, -1, dp)
 
 
-### method1: dp with tabulation
+### method4: dp with tabulation
 # optimal substructure: the LIS ending at index i
-# time complexity: O()
-# space complexity: O()
+# time complexity: O(n^2)
+# space complexity: O(n)
 
 class Solution:
     def lengthOfLIS(self, nums: List[int]) -> int:
@@ -88,16 +88,38 @@ class Solution:
         return ans        
 
 
-# class Solution:
-#     def lengthOfLIS(self, nums: List[int]) -> int:
-#         n = len(nums)
-#         dp = [1] * n
+### method5: binary search
 
-#         for r in range(n):
-#             for l in range(r):
-#                 if nums[l] < nums[r] and dp[r]
+# time complexity: O(nlogn)
+# space complexity: O(n)
+
+import bisect
+
+class Solution:
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        subseq = []
+        for k in nums:
+            if not subseq or subseq[-1] < k:
+                subseq.append(k)
+            else:
+                ip = bisect.bisect_left(subseq, k)
+                subseq[ip] = k        
+        return len(subseq)
 
 
+### method6: binary search + inplace space
 
-#         return maxLength
+# time complexity: O(nlogn)
+# space complexity: O(1)
 
+class Solution:
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        pos = 0
+        for k in nums:
+            if pos == 0 or nums[pos-1] < k:
+                nums[pos] = k
+                pos += 1
+            else:
+                ip = bisect.bisect_left(nums, k, lo=0, hi=pos-1)
+                nums[ip] = k
+        return pos
