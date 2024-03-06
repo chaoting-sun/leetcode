@@ -1,26 +1,32 @@
-### method1: dp (O(n^2); TLE)
+### method1: dp (O(n^2); MLE)
 
-import numpy as np
+# [ Explanation ]
+# optimal substructure: dp[i][j] := the max sum of the subarray nums[m:j], where 0 <= m <= j
+# if i == j: dp[i][j] = nums[i]
+# if i != j: dp[i][j] = nums[i] + (dp[i][j-1] > 0 ? dp[i][j-1] : 0)
+# We only need to take care about dp[i][j] where i <= j
 
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
-        n = len(nums)
-        dp = np.zeros((n,n), dtype=int)
-        maxSum = -10E4
+        dp = [[0]*len(nums) for _ in range(len(nums))]
 
-        for j in range(n):
+        maxSum = float("-inf")
+
+        for j in range(len(nums)):
             for i in range(j+1):
-                if i == j:
-                    dp[i][j] = nums[i]
-                else:
-                    dp[i][j] = dp[i][j-1] + nums[j]
+                dp[i][j] = nums[j]
+                if j > 0 and dp[i][j-1] > 0:
+                    dp[i][j] += dp[i][j-1]
                 maxSum = max(maxSum, dp[i][j])
-        return maxSum
 
+        return maxSum
 
 ### method2: Kadane's algorithm (O(n))
 
-import numpy as np
+# [ Explanation ]
+# traverse from left to right
+# currMaxSum := the max sum of the subarray, which includes the current value
+# maxSum := the max subarray until now
 
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
