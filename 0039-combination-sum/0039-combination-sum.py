@@ -1,18 +1,21 @@
-class Solution(object):
-    def search(self, candidates, prevl, r, prevSum, prevComb, ans):
-        if prevSum == 0:
-            ans.append(prevComb)
-            return
+### backtracking
 
-        elif prevSum < 0:
+class Solution(object):
+    def backtrack(self, ans, candidates, l, r, prevSet, prevLeft):
+        if prevLeft == 0:
+            ans.append(prevSet)
+            return
+        if prevLeft < 0:
             return
         
-        currl = prevl
-        while currl <= r and candidates[currl] <= prevSum:
-            currSum = prevSum - candidates[currl]
-            currComb = prevComb + [candidates[currl]]
-            self.search(candidates, currl, r, currSum, currComb, ans)
-            currl += 1
+        for i in range(l, r + 1):
+            if candidates[i] <= prevLeft:
+                currSet = prevSet + [candidates[i]]
+                currLeft = prevLeft - candidates[i]
+                print(currSet, currLeft)
+                self.backtrack(ans, candidates, i, r, currSet, currLeft)
+            else:
+                break
 
     def combinationSum(self, candidates, target):
         """
@@ -21,11 +24,10 @@ class Solution(object):
         :rtype: List[List[int]]
         """
         ans = []
-        comb = []
-        l, r = 0, len(candidates) - 1
+        l, r = 0, len(candidates)-1
         candidates.sort()
-
-        while r >= 0 and candidates[r] > target:
+        while r > 0 and candidates[r] > target:
             r -= 1
-        self.search(candidates, l, r, target, comb, ans)
+
+        self.backtrack(ans, candidates, l, r, [], target)
         return ans
