@@ -50,41 +50,30 @@ Time:
 Space: O(n)
 """
 
-# class MyStack:
+class MyStack:
 
-#     def __init__(self):
-#         self.q = deque()
+    def __init__(self):
+        self.q = deque()
 
-#     def push(self, x: int) -> None:
+    def push(self, x: int) -> None:
+        self.q.append(x)
 
-#             self.q1.append(x)
+    def pop(self) -> int:
+        n = len(self.q)
+        for i in range(n-1):
+            self.q.append(self.q.popleft())
+        return self.q.popleft()
 
-#     def pop(self) -> int:
-#         if len(self.q1):
-#             while len(self.q1) > 1:
-#                 self.q2.append(self.q1.popleft())
-#             return self.q1.popleft()
-#         else:
-#             while len(self.q2) > 1:
-#                 self.q1.append(self.q2.popleft())
-#             return self.q2.popleft()
+    def top(self) -> int:
+        n = len(self.q)
+        for i in range(n-1):
+            self.q.append(self.q.popleft())
+        last = self.q.popleft()
+        self.q.append(last)
+        return last
 
-#     def top(self) -> int:
-#         if len(self.q1):
-#             while len(self.q1) > 1:
-#                 self.q2.append(self.q1.popleft())
-#             last = self.q1.pop()
-#             self.q2.append(last)
-#             return last
-#         else:
-#             while len(self.q2) > 1:
-#                 self.q1.append(self.q2.popleft())
-#             last = self.q2.pop()
-#             self.q1.append(last)
-#             return last
-
-#     def empty(self) -> bool:
-#         return not (len(self.q1) or len(self.q2))
+    def empty(self) -> bool:
+        return not self.q
 
 # Your MyStack object will be instantiated and called as such:
 # obj = MyStack()
