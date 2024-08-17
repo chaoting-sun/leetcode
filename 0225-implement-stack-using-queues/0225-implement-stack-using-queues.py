@@ -15,35 +15,26 @@ class MyStack:
         self.q1 = deque()
         self.q2 = deque()
 
+    def _get_queues(self):
+        return (self.q1, self.q2) if self.q1 else (self.q2, self.q1)
+
     def push(self, x: int) -> None:
-        if len(self.q1):
-            self.q1.append(x)
-        else:
-            self.q2.append(x)
+        active_q, _ = self._get_queues()
+        active_q.append(x)
 
     def pop(self) -> int:
-        if len(self.q1):
-            while len(self.q1) > 1:
-                self.q2.append(self.q1.popleft())
-            return self.q1.popleft()
-        else:
-            while len(self.q2) > 1:
-                self.q1.append(self.q2.popleft())
-            return self.q2.popleft()
+        active_q, backup_q = self._get_queues()
+        while len(active_q) > 1:
+            backup_q.append(active_q.popleft())
+        return active_q.popleft()
 
     def top(self) -> int:
-        if len(self.q1):
-            while len(self.q1) > 1:
-                self.q2.append(self.q1.popleft())
-            last = self.q1.pop()
-            self.q2.append(last)
-            return last
-        else:
-            while len(self.q2) > 1:
-                self.q1.append(self.q2.popleft())
-            last = self.q2.pop()
-            self.q1.append(last)
-            return last
+        active_q, backup_q = self._get_queues()
+        while len(active_q) > 1:
+            backup_q.append(active_q.popleft())
+        last = active_q.popleft()
+        backup_q.append(last)
+        return last
 
     def empty(self) -> bool:
         return not (len(self.q1) or len(self.q2))
