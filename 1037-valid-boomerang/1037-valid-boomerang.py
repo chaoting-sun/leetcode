@@ -28,3 +28,12 @@ class Solution:
             return not self.isHorizontallyAligned(p1, p2, p3)
 
         return self.isAlignedWithSlope(p1, p2, p3)
+
+
+class Solution:
+    def isBoomerang(self, points: List[List[int]]) -> bool:
+        p1 = points[0]
+        p2 = points[1]
+        p3 = points[2]
+
+        return (p1[0] - p2[0]) * (p1[1] - p3[1]) != (p1[1] - p2[1]) * (p1[0] - p3[0])
