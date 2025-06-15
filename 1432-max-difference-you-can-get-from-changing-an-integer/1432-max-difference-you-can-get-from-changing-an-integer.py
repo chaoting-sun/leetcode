@@ -1,21 +1,21 @@
 class Solution:
     def maxDiff(self, num: int) -> int:
         num_str = str(num)
+        max_num, min_num = num, num
 
-        a = num
         for digit in num_str:
-            candidate = int(num_str.replace(digit, "9"))
-            a = max(a, candidate)
+            if digit != "9":
+                max_num = int(num_str.replace(digit, "9"))
+                break
 
-        b = num
-        for index, digit in enumerate(num_str):
-            if index != 0 and num_str[0] != digit:
-                candidate = int(num_str.replace(digit, "0"))
-                if candidate != 0:
-                    b = min(b, candidate)
+        for i, digit in enumerate(num_str):
+            if i == 0:
+                if digit != "1":
+                    min_num = int(num_str.replace(digit, "1"))
+            else:
+                if digit != num_str[0]:
+                    candidate = int(num_str.replace(digit, "0"))
+                    if candidate < min_num:
+                        min_num = candidate
 
-            candidate = int(num_str.replace(digit, "1"))
-            b = min(b, candidate)
-        
-        return a - b
-
+        return int(max_num) - int(min_num)
