@@ -1,4 +1,5 @@
 mkdocs
+mkdocs-material
 notion-client
 python-dotenv
 python-slugify

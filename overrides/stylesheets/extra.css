@@ -1,0 +1,146 @@
+/* ==========================================================================
+   LeetCode Notes — minimal black/white theme (light only, white background)
+   Overrides Material's defaults for a clean, monochrome look.
+   ========================================================================== */
+
+/* Scope to the light scheme: Material defines these on the
+   [data-md-color-scheme] element, so we must override on the same selector
+   (a plain :root is too far up the cascade and loses the variable lookup). */
+[data-md-color-scheme="default"] {
+  /* Monochrome accent: links, hovers and selections are near-black, not indigo. */
+  --md-accent-fg-color: #000000;
+  --md-accent-fg-color--transparent: rgba(0, 0, 0, 0.1);
+
+  /* Links: near-black with a subtle underline, instead of the default color. */
+  --md-typeset-a-color: #1b1b1b;
+
+  /* Slightly softer body text than pure black for comfortable long reads. */
+  --md-default-fg-color: #1f1f1f;
+  --md-default-fg-color--light: #4a4a4a;
+
+  /* Keep every surface pure white. */
+  --md-default-bg-color: #ffffff;
+
+  /* Tame the brand-color tint Material applies to some accents. */
+  --md-primary-fg-color: #111111;
+}
+
+/* --- Typography ----------------------------------------------------------- */
+
+.md-typeset {
+  font-feature-settings: "kern", "liga", "calt";
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Generated notes contain several top-level "# 1. ..." headings per page.
+   Give them clear hierarchy without overwhelming weight. */
+.md-typeset h1 {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--md-default-fg-color);
+}
+
+.md-typeset h2 {
+  font-weight: 650;
+  letter-spacing: -0.005em;
+  margin-top: 2.2em;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid var(--md-default-fg-color--lightest);
+}
+
+.md-typeset h3 {
+  font-weight: 600;
+}
+
+/* Links: understated underline that strengthens on hover. */
+.md-typeset a {
+  text-decoration: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.22);
+  transition: border-color 120ms, color 120ms;
+}
+.md-typeset a:hover {
+  border-bottom-color: rgba(0, 0, 0, 0.85);
+  color: #000000;
+}
+
+/* --- Header --------------------------------------------------------------- */
+
+/* Flatten the black header into a crisp bar that sits on white content. */
+.md-header {
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
+}
+.md-header--shadow {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+/* Tabs bar: white background, black active indicator — keeps it monochrome. */
+.md-tabs {
+  background-color: #ffffff;
+  color: var(--md-default-fg-color);
+  border-bottom: 1px solid var(--md-default-fg-color--lightest);
+}
+.md-tabs__link {
+  opacity: 0.7;
+}
+.md-tabs__link--active,
+.md-tabs__link:hover {
+  opacity: 1;
+  color: #000000;
+}
+
+/* --- Code ----------------------------------------------------------------- */
+
+.md-typeset code {
+  background-color: #f4f4f4;
+  border: 1px solid #ececec;
+  border-radius: 4px;
+  padding: 0.1em 0.35em;
+  font-size: 0.85em;
+}
+
+.md-typeset pre > code {
+  border: none;
+  padding: 0.8em 1em;
+}
+
+.md-typeset .highlight {
+  border: 1px solid #ececec;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.md-typeset .highlight code {
+  background-color: #fbfbfb;
+}
+
+/* --- Tables (the Problems index is a big table) --------------------------- */
+
+.md-typeset table:not([class]) {
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 8px;
+  overflow: hidden;
+  font-size: 0.78rem;
+}
+.md-typeset table:not([class]) th {
+  background-color: #fafafa;
+  font-weight: 600;
+}
+.md-typeset table:not([class]) tr:hover {
+  background-color: #fafafa;
+}
+
+/* --- Admonitions: monochrome, restrained ---------------------------------- */
+
+.md-typeset .admonition,
+.md-typeset details {
+  border-radius: 8px;
+  border-left-width: 3px;
+}
+
+/* --- Footer --------------------------------------------------------------- */
+
+.md-footer {
+  background-color: #111111;
+}
+.md-footer-meta {
+  background-color: #0a0a0a;
+}

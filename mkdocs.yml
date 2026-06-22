@@ -1,5 +1,6 @@
 site_name: LeetCode Notes
 site_url: https://chaoting.tw/leetcode/
+site_description: My LeetCode problem notes and solution patterns.
 
 docs_dir: generated_docs
 site_dir: site
@@ -8,9 +9,84 @@ site_dir: site
 use_directory_urls: true
 
 theme:
-  name: mkdocs
+  name: material
+  # Committed assets (CSS, template overrides) live here, OUTSIDE generated_docs/,
+  # which is regenerated from Notion on every build.
+  custom_dir: overrides
+  language: en
+  font:
+    text: Inter
+    code: JetBrains Mono
+  # Minimal black/white, light only. Background stays white.
+  palette:
+    scheme: default
+    primary: black
+    accent: indigo
+  features:
+    # Snappy SPA-style navigation
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.tracking
+    # Top-level sections (Home / Problems / Patterns) as tabs
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.indexes
+    - navigation.top
+    - navigation.footer
+    - toc.follow
+    # Search
+    - search.suggest
+    - search.highlight
+    - search.share
+    # Code blocks
+    - content.code.copy
+    - content.code.annotate
+    - content.tooltips
+  icon:
+    repo: fontawesome/brands/github
+
+markdown_extensions:
+  # Admonitions / collapsible blocks
+  - admonition
+  - pymdownx.details
+  - attr_list
+  - md_in_html
+  - tables
+  - footnotes
+  - def_list
+  # Code highlighting
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  # Richer inline text
+  - pymdownx.caret
+  - pymdownx.mark
+  - pymdownx.tilde
+  - pymdownx.keys
+  - pymdownx.smartsymbols
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - toc:
+      permalink: true
+      permalink_title: Anchor link to this section
+
+plugins:
+  - search:
+      # Tokenize CJK (Chinese) content so search works on bilingual notes.
+      separator: '[\s​\-　-〿＀-￯]+'
 
 nav:
   - Home: index.md
   - Problems: problems/index.md
   - Patterns: patterns/index.md
+
+extra_css:
+  - stylesheets/extra.css
