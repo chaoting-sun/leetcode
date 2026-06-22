@@ -136,6 +136,73 @@
   border-left-width: 3px;
 }
 
+/* --- Problems filter toolbar (F1) ----------------------------------------- */
+
+.lc-filter {
+  margin: 1.2em 0 1em;
+}
+.lc-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4em;
+  margin-bottom: 0.8em;
+}
+.lc-chip {
+  font-size: 0.72rem;
+  line-height: 1.4;
+  padding: 0.25em 0.7em;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--md-default-fg-color--light);
+  cursor: pointer;
+  transition: background 120ms, color 120ms, border-color 120ms;
+}
+.lc-chip:hover {
+  border-color: rgba(0, 0, 0, 0.4);
+  color: #000000;
+}
+/* Selected chips invert to solid black — the only strong accent on the page. */
+.lc-chip--active {
+  background: #111111;
+  border-color: #111111;
+  color: #ffffff;
+}
+.lc-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6em;
+}
+.lc-diff,
+.lc-search {
+  font-size: 0.8rem;
+  padding: 0.35em 0.6em;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 6px;
+  background: #ffffff;
+  color: var(--md-default-fg-color);
+}
+.lc-search {
+  flex: 1 1 12em;
+  min-width: 10em;
+}
+.lc-diff:focus,
+.lc-search:focus {
+  outline: none;
+  border-color: rgba(0, 0, 0, 0.55);
+}
+.lc-count {
+  font-size: 0.72rem;
+  color: var(--md-default-fg-color--light);
+  white-space: nowrap;
+}
+
+/* Filtered-out rows are hidden via the `hidden` attribute from filter.js. */
+#lc-table tr[hidden] {
+  display: none;
+}
+
 /* --- Footer --------------------------------------------------------------- */
 
 .md-footer {
