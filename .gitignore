@@ -1,0 +1,20 @@
+# Secrets / local env
+.env
+.venv/
+
+# Python
+__pycache__/
+*.pyc
+
+# Notion-generated Markdown (never commit — regenerated on every build)
+generated_docs/
+
+# Incremental build cache (holds note content — never commit)
+.notion_cache.json
+.notion_cache.json.tmp
+
+# MkDocs build output (never commit — regenerated on every build)
+site/
+
+# macOS
+.DS_Store

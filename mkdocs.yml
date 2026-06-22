@@ -1,0 +1,16 @@
+site_name: LeetCode Notes
+site_url: https://chaoting.tw/leetcode/
+
+docs_dir: generated_docs
+site_dir: site
+
+# Each problem becomes /problems/<slug>/ instead of /problems/<slug>.html
+use_directory_urls: true
+
+theme:
+  name: mkdocs
+
+nav:
+  - Home: index.md
+  - Problems: problems/index.md
+  - Patterns: patterns/index.md

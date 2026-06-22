@@ -1,0 +1,4 @@
+mkdocs
+notion-client
+python-dotenv
+python-slugify

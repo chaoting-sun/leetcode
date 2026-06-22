@@ -1,0 +1,76 @@
+name: Deploy LeetCode Notes
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  # 06:00 Asia/Taipei (UTC+8) == 22:00 UTC the previous day.
+  # GitHub cron only accepts UTC and does not guarantee exact timing.
+  schedule:
+    - cron: "0 22 * * *"
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      # Restore the incremental Notion cache so only changed pages are re-fetched.
+      # The key always changes (run_id) so a fresh cache is saved every run, while
+      # restore-keys pulls the most recent previous cache.
+      - name: Restore Notion cache
+        uses: actions/cache@v4
+        with:
+          path: .notion_cache.json
+          key: notion-cache-${{ github.run_id }}
+          restore-keys: |
+            notion-cache-
+
+      - name: Generate site from Notion
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
+          NOTION_DATA_SOURCE_ID: ${{ secrets.NOTION_DATA_SOURCE_ID }}
+          SITE_URL: https://chaoting.tw/leetcode/
+        run: |
+          python scripts/build_site_from_notion.py
+
+      - name: Build static site
+        run: |
+          mkdocs build
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
