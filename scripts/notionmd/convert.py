@@ -7,6 +7,7 @@ everything else here is plain data transformation.
 
 from __future__ import annotations
 
+import html
 import re
 
 from slugify import slugify
@@ -335,22 +336,75 @@ def write_patterns_index() -> None:
     (PATTERNS_DIR / "index.md").write_text("# Patterns\n\nComing soon.\n", encoding="utf-8")
 
 
+# Difficulty ordering for the filter dropdown; unknown values sort last.
+_DIFF_RANK = {"easy": 0, "medium": 1, "hard": 2}
+
+
+def _difficulty_slug(d: str) -> str:
+    return d.strip().lower()
+
+
 def write_problems_index(rows: list[dict]) -> None:
+    """Emit the Problems page: a filter toolbar (F1) + an HTML table whose rows
+    carry data-difficulty / data-tags for client-side filtering by filter.js.
+
+    The table uses id (not class) so Material's `table:not([class])` styling
+    still applies; filter.js targets `#lc-table`.
+    """
     # rows sorted; numberless entries (sort key 10**9) fall to the end.
     rows = sorted(rows, key=lambda r: r["sort_key"])
-    lines = [
+
+    # Tag slug -> display label (first label wins), and the difficulties present.
+    tag_labels: dict[str, str] = {}
+    diffs: set[str] = set()
+    for r in rows:
+        for t in r["tags"]:
+            tag_labels.setdefault(slugify(t), t)
+        if r["difficulty"]:
+            diffs.add(_difficulty_slug(r["difficulty"]))
+
+    chips = "".join(
+        f'<button class="lc-chip" type="button" data-tag="{slug}">{html.escape(label)}</button>'
+        for slug, label in sorted(tag_labels.items(), key=lambda kv: kv[1].lower())
+    )
+    diff_opts = "".join(
+        f'<option value="{d}">{html.escape(d.capitalize())}</option>'
+        for d in sorted(diffs, key=lambda d: _DIFF_RANK.get(d, 99))
+    )
+
+    parts = [
         "# Problems",
         "",
-        "| # | Title | Difficulty | Tags | Proficiency | Notes |",
-        "|---|-------|------------|------|-------------|-------|",
+        '<div class="lc-filter">',
+        f'  <div class="lc-chips">{chips}</div>',
+        '  <div class="lc-controls">',
+        '    <select class="lc-diff" aria-label="Filter by difficulty">'
+        f'<option value="">All difficulties</option>{diff_opts}</select>',
+        '    <input class="lc-search" type="search" placeholder="Filter by title…"'
+        ' aria-label="Filter by title">',
+        '    <span class="lc-count" aria-live="polite"></span>',
+        "  </div>",
+        "</div>",
+        "",
+        '<table id="lc-table">',
+        "<thead><tr><th>#</th><th>Title</th><th>Difficulty</th><th>Tags</th>"
+        "<th>Proficiency</th></tr></thead>",
+        "<tbody>",
     ]
     for r in rows:
         num = r["num_str"].lstrip("0") if r["num_str"] else "—"
-        tags = ", ".join(r["tags"]) if r["tags"] else ""
-        lines.append(
-            f"| {num} | [{r['display_title']}]({r['slug']}/index.md) | "
-            f"{r['difficulty']} | {tags} | {r['proficiency']} | [Notes]({r['slug']}/index.md) |"
+        tag_slugs = " ".join(slugify(t) for t in r["tags"])
+        tags_disp = html.escape(", ".join(r["tags"]))
+        diff = r["difficulty"]
+        parts.append(
+            f'<tr data-difficulty="{_difficulty_slug(diff)}" data-tags="{html.escape(tag_slugs)}">'
+            f"<td>{html.escape(num)}</td>"
+            f'<td><a href="{r["slug"]}/">{html.escape(r["display_title"])}</a></td>'
+            f"<td>{html.escape(diff)}</td>"
+            f"<td>{tags_disp}</td>"
+            f"<td>{html.escape(r['proficiency'])}</td>"
+            "</tr>"
         )
-    lines.append("")
+    parts += ["</tbody>", "</table>", ""]
     PROBLEMS_DIR.mkdir(parents=True, exist_ok=True)
-    (PROBLEMS_DIR / "index.md").write_text("\n".join(lines), encoding="utf-8")
+    (PROBLEMS_DIR / "index.md").write_text("\n".join(parts), encoding="utf-8")
