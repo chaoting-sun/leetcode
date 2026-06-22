@@ -46,7 +46,7 @@ NOTION_RATE = float(os.environ.get("NOTION_RATE", "3"))
 # whether a page needs re-fetching. The generated_docs/ folder — not this file —
 # is the source of truth for content. NEVER deleted at the start of a run.
 # Bump CACHE_VERSION whenever the rendering logic changes, to force a re-fetch.
-CACHE_VERSION = 4
+CACHE_VERSION = 5
 CACHE_FILE = ROOT / ".notion_cache.json"
 USE_CACHE = os.environ.get("NOTION_NO_CACHE", "") == ""
 

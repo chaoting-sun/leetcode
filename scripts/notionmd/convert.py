@@ -13,9 +13,8 @@ from slugify import slugify
 
 from .client import get_children
 from .config import (
-    COL_ATTEMPTS, COL_BLOCKERS, COL_DATE, COL_DIFFICULTY, COL_LINK, COL_NOTES,
-    COL_PROFICIENCY, COL_SOURCE, COL_TAGS, COL_TITLE, DOCS_DIR, PATTERNS_DIR,
-    PROBLEMS_DIR, warn,
+    COL_DIFFICULTY, COL_LINK, COL_NOTES, COL_PROFICIENCY, COL_TAGS, COL_TITLE,
+    DOCS_DIR, PATTERNS_DIR, PROBLEMS_DIR, warn,
 )
 
 # --------------------------------------------------------------------------- #
@@ -167,7 +166,9 @@ def render_block(client, block: dict, depth: int, number: int) -> str:
     if btype == "paragraph":
         line = indent + rich_to_md(data.get("rich_text", []))
     elif btype in ("heading_1", "heading_2", "heading_3"):
-        hashes = {"heading_1": "#", "heading_2": "##", "heading_3": "###"}[btype]
+        # Demoted one level so the page title stays the only H1 and the note's
+        # own headings nest under it in the TOC (F4).
+        hashes = {"heading_1": "##", "heading_2": "###", "heading_3": "####"}[btype]
         line = f"{hashes} {rich_to_md(data.get('rich_text', []))}"
     elif btype == "bulleted_list_item":
         line = f"{indent}- {rich_to_md(data.get('rich_text', []))}"
@@ -220,32 +221,73 @@ def render_blocks(client, blocks: list, depth: int = 0) -> str:
 # Page + index rendering
 # --------------------------------------------------------------------------- #
 
+# Strip Markdown syntax to plain text for the SEO description. Order matters:
+# fenced code and links are handled before the catch-all emphasis/pipe removal.
+_MD_STRIP = [
+    (re.compile(r"```.*?```", re.S), " "),          # fenced code blocks
+    (re.compile(r"!\[[^\]]*\]\([^)]*\)"), " "),     # images
+    (re.compile(r"\[([^\]]*)\]\([^)]*\)"), r"\1"),  # links -> link text
+    (re.compile(r"`([^`]*)`"), r"\1"),              # inline code
+    (re.compile(r"^\s{0,3}#{1,6}\s*", re.M), ""),   # heading markers
+    (re.compile(r"^\s{0,3}>\s?", re.M), ""),        # blockquote markers
+    (re.compile(r"^\s*[-*+]\s+", re.M), ""),        # bullet markers
+    (re.compile(r"^\s*\d+\.\s+", re.M), ""),        # numbered-list markers
+    (re.compile(r"[*_~`|#>]+"), ""),                # leftover emphasis / table pipes
+]
+
+_DESC_LIMIT = 155
+
+
+def make_description(body_md: str) -> str:
+    """Plain-text SEO description from the note body: ~155 chars, Markdown stripped.
+
+    Truncates at a word boundary for Latin text and a hard character boundary for
+    CJK (which has no spaces). Returns "" if nothing usable remains.
+    """
+    text = body_md
+    for pat, repl in _MD_STRIP:
+        text = pat.sub(repl, text)
+    text = re.sub(r"\s+", " ", text).strip()
+    if not text:
+        return ""
+    if len(text) > _DESC_LIMIT:
+        cut = text[:_DESC_LIMIT].rstrip()
+        sp = cut.rfind(" ")
+        if sp >= int(_DESC_LIMIT * 0.6):  # only back off when it keeps most of it
+            cut = cut[:sp]
+        text = cut.rstrip() + "…"
+    return text
+
+
+def _yaml_dquote(s: str) -> str:
+    """Quote a string as a YAML double-quoted scalar (it has no newlines)."""
+    return '"' + s.replace("\\", "\\\\").replace('"', '\\"') + '"'
+
+
 def build_page_markdown(num_str: str | None, props: dict, body_md: str) -> str:
     title = get_title(props, COL_TITLE)
     heading = f"{num_str}. {strip_number_prefix(title)}" if num_str else title
 
-    lines = [f"# {heading}", ""]
+    # SEO front-matter: Material renders `description` into <meta name="description">
+    # and og:description. Must be the very first lines of the file (F3).
+    lines: list[str] = []
+    if (desc := make_description(body_md)):
+        lines += ["---", f"description: {_yaml_dquote(desc)}", "---"]
+    lines += [f"# {heading}", ""]
 
+    # F4: only Difficulty / Tags / LeetCode are rendered on the page.
     meta = []
     if (v := get_select(props, COL_DIFFICULTY)):
         meta.append(f"- Difficulty: {v}")
     if (v := get_multi(props, COL_TAGS)):
         meta.append(f"- Tags: {', '.join(v)}")
-    if (v := get_multi(props, COL_SOURCE)):
-        meta.append(f"- Source: {', '.join(v)}")
-    if (v := get_select(props, COL_PROFICIENCY)):
-        meta.append(f"- Proficiency: {v}")
-    if (v := get_multi(props, COL_BLOCKERS)):
-        meta.append(f"- Blockers: {', '.join(v)}")
-    if (v := get_number(props, COL_ATTEMPTS)) is not None:
-        meta.append(f"- Attempts: {int(v) if float(v).is_integer() else v}")
-    if (v := get_date(props, COL_DATE)):
-        meta.append(f"- Date: {v}")
     if (v := get_url(props, COL_LINK)):
         meta.append(f"- LeetCode: {v}")
 
     lines.extend(meta)
-    lines += ["", "---", "", "## Notes", "", body_md, ""]
+    # No "## Notes" wrapper: the body's headings (demoted in render_block) form
+    # the TOC under the single H1 title.
+    lines += ["", "---", "", body_md, ""]
     return "\n".join(lines)
 
 
