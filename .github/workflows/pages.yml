@@ -42,10 +42,19 @@ jobs:
       # Restore the incremental Notion cache so only changed pages are re-fetched.
       # The key always changes (run_id) so a fresh cache is saved every run, while
       # restore-keys pulls the most recent previous cache.
+      #
+      # Both paths MUST be cached together: .notion_cache.json is only an edit-time
+      # index ({page_id: last_edited_time}) that decides what to re-fetch, while the
+      # actual page content lives in generated_docs/. On an ephemeral runner the
+      # folder starts empty, so caching the index alone would let "unchanged" pages
+      # be skipped with no file on disk — they'd vanish from the site. Keeping both
+      # in one cache entry keeps the index and the content folder in sync.
       - name: Restore Notion cache
         uses: actions/cache@v4
         with:
-          path: .notion_cache.json
+          path: |
+            .notion_cache.json
+            generated_docs
           key: notion-cache-${{ github.run_id }}
           restore-keys: |
             notion-cache-
